@@ -2,7 +2,24 @@ import connection from '../database/connection';
 
 export default {
   async index(req, res) {
-    const incidents = await connection('incidents').select('*');
+    const { page = 1 } = req.query;
+
+    const [count] = await connection('incidents').count();
+
+    const incidents = await connection('incidents')
+      .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+      .limit(5)
+      .offset((page - 1) * 5)
+      .select([
+        'incidents.*',
+        'ongs.name as ong_name',
+        'ongs.email as ong_email',
+        'ongs.whatsapp as ong_whatsapp',
+        'ongs.city as ong_city',
+        'ongs.uf as ong_uf',
+      ]);
+
+    res.header('X-Total-Count', count['count(*)']);
 
     return res.json(incidents);
   },
