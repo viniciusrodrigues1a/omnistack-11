@@ -15,5 +15,9 @@
   },
   "scripts": {
     "dev": "nodemon"
+  },
+  "dependencies": {
+    "knex": "^0.20.13",
+    "sqlite3": "^4.1.1"
   }
 }
