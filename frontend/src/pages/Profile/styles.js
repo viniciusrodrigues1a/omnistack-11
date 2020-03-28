@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const ProfileContainer = styled.div`
   width: 100%;
   max-width: 73.75rem;
   padding: 0 1.875rem;
@@ -74,17 +74,43 @@ export const IncidentsList = styled.ul`
         margin-top: 2rem;
       }
     }
+  }
+`;
 
-    button {
-      position: absolute;
-      right: 1.5rem;
-      top: 1.5rem;
-      border: 0;
-      background: none;
+export const IncidentOptions = styled.div`
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
 
-      &:hover {
-        opacity: 0.8;
-      }
+  button {
+    border: 0;
+    background: none;
+
+    & + button {
+      margin-left: 1.3rem;
     }
   }
+
+  button:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const Modal = styled.div`
+  position: absolute;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+  top: 0%;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  background: #00000088;
+`;
+
+export const ModalContent = styled.div`
+  width: 60%;
+  height: 50%;
+  background: #eee;
+  border-radius: 8px;
 `;
