@@ -56,10 +56,10 @@ export default function Register() {
             os casos da sua ONG
           </p>
 
-          <AuthRedirect to="/">
+          <AuthRedirect.Link to="/">
             <FiArrowLeft size={16} color="#e02041" />
             Já tenho cadastro
-          </AuthRedirect>
+          </AuthRedirect.Link>
         </Section>
         <Form onSubmit={handleRegister}>
           <Input

@@ -47,10 +47,10 @@ export default function Logon() {
           />
           <Button type="submit">Entrar</Button>
 
-          <AuthRedirect to="/register">
+          <AuthRedirect.Link to="/register">
             <FiLogIn size={16} color="#e02041" />
             Não tenho cadastro
-          </AuthRedirect>
+          </AuthRedirect.Link>
         </Form>
       </FormSection>
 

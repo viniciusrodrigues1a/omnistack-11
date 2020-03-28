@@ -55,10 +55,10 @@ export default function NewIncident() {
             isso.
           </p>
 
-          <AuthRedirect to="/profile">
+          <AuthRedirect.Link to="/profile">
             <FiArrowLeft size={16} color="#e02041" />
             Voltar
-          </AuthRedirect>
+          </AuthRedirect.Link>
         </Section>
         <Form onSubmit={handleNewIncident}>
           <Input
