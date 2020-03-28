@@ -52,6 +52,40 @@ export default {
 
     return res.json({ id });
   },
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      title: Yup.string(),
+      description: Yup.string(),
+      value: Yup.number().positive(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
+    const { title, description, value } = req.body;
+    const ong_id = req.headers.authorization;
+    const { id } = req.params;
+
+    if (!ong_id) {
+      return res.status(401).json({ error: 'Operation not permitted.' });
+    }
+
+    const incidentsUpdated = await connection('incidents')
+      .where({
+        id,
+        ong_id,
+      })
+      .update({ title, description, value });
+
+    if (incidentsUpdated === 0) {
+      return res
+        .status(401)
+        .json({ error: "The incident ID informed doesn't belong to you" });
+    }
+
+    return res.status(204).end();
+  },
   async delete(req, res) {
     const { id } = req.params;
     const ong_id = req.headers.authorization;
