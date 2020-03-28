@@ -1,20 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { StyledLink } from './styles';
+import { StyledLink, StyledButton } from './styles';
 
-export default function AuthRedirect({ children, to }) {
-  return <StyledLink to={to}>{children}</StyledLink>;
-}
+const AuthRedirect = {
+  Link: ({ children, to }) => {
+    return <StyledLink to={to}>{children}</StyledLink>;
+  },
+  Button: props => {
+    const { children } = props;
+    return <StyledButton {...props}>{children}</StyledButton>;
+  },
+};
 
-AuthRedirect.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+export default AuthRedirect;
+
+const validatedChildren = PropTypes.oneOfType([
+  PropTypes.node,
+  PropTypes.arrayOf(PropTypes.node),
+]);
+
+AuthRedirect.Link.propTypes = {
+  children: validatedChildren,
   to: PropTypes.string.isRequired,
 };
 
-AuthRedirect.defaultProps = {
+AuthRedirect.Link.defaultProps = {
+  children: null,
+};
+
+AuthRedirect.Button.propTypes = {
+  children: validatedChildren,
+};
+
+AuthRedirect.Button.defaultProps = {
   children: null,
 };

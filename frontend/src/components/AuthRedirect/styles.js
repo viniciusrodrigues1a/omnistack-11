@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const StyledLink = styled(Link)`
+const style = css`
   display: flex;
   align-items: center;
   margin-top: 2.5rem;
@@ -10,6 +10,8 @@ export const StyledLink = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   transition: opacity 0.2s;
+  background: none;
+  border: 0;
 
   svg {
     margin-right: 0.5rem;
@@ -18,4 +20,12 @@ export const StyledLink = styled(Link)`
   &:hover {
     opacity: 0.8;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  ${style}
+`;
+
+export const StyledButton = styled.button`
+  ${style}
 `;
