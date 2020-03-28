@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import { useHistory, Link } from 'react-router-dom';
 
 import { FiPower, FiTrash2, FiRefreshCw, FiArrowLeft } from 'react-icons/fi';
@@ -61,7 +62,9 @@ export default function Profile() {
 
       setIncidents(incidents.filter(incident => incident.id !== id));
     } catch (err) {
-      alert('Erro ao deletar caso.');
+      toast.error('Erro ao deletar caso.', {
+        className: 'toast-background',
+      });
     }
   }
 
@@ -94,7 +97,9 @@ export default function Profile() {
       apiCall();
       handleShowUpdateModal();
     } catch (err) {
-      alert('Erro ao atualizar caso.');
+      toast.error('Erro ao atualizar caso.', {
+        className: 'toast-background',
+      });
     }
   }
 

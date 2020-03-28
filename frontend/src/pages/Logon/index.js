@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
@@ -28,7 +29,9 @@ export default function Logon() {
 
       history.push('/profile');
     } catch (err) {
-      alert('Falha no login, tente novamente.'); // TODO
+      toast.error('Falha no login, tente novamente.', {
+        className: 'toast-background',
+      });
     }
   }
 

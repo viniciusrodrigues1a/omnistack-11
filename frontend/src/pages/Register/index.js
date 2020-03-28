@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import api from '../../services/api';
 
+import { NotifyToastContainer } from './styles';
 import Container from '../../components/Container';
 import Content from '../../components/Content';
 import AuthRedirect from '../../components/AuthRedirect';
@@ -36,11 +38,41 @@ export default function Register() {
     try {
       const response = await api.post('/ongs', data);
 
-      alert(`Seu ID de acesso: ${response.data.id}`); // TODO add a toast
+      setName('');
+      setEmail('');
+      setWhatsapp('');
+      setCity('');
+      setUF('');
 
-      history.push('/');
+      toast.success(
+        <NotifyToastContainer>
+          <div>
+            <p>Cadastrado com sucesso!</p>
+            <p>
+              Anote seu ID: <span>{response.data.id}</span>
+            </p>
+          </div>
+          <Button
+            onClick={() => {
+              toast.dismiss();
+              history.push('/');
+            }}
+          >
+            Ir para página de login
+          </Button>
+        </NotifyToastContainer>,
+        {
+          closeOnClick: false,
+          closeButton: false,
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: false,
+          className: 'toast-background toast-not-clickable',
+        }
+      );
     } catch (err) {
-      alert(`Erro`); // TODO add a toast
+      toast.error('Falha no registro, tente novamente.', {
+        className: 'toast-background',
+      });
     }
   }
 

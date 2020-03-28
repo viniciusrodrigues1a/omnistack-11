@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -39,7 +40,9 @@ export default function NewIncident() {
 
       history.push('/profile');
     } catch (err) {
-      alert('Erro ao cadastrar caso.'); // TODO
+      toast.error('Erro ao cadastrar caso.', {
+        className: 'toast-background',
+      });
     }
   }
 
