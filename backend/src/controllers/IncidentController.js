@@ -71,6 +71,10 @@ export default {
       return res.status(401).json({ error: 'Operation not permitted.' });
     }
 
+    if (!title && !description && !value) {
+      return res.status(400).json({ error: 'Empty body.' });
+    }
+
     const incidentsUpdated = await connection('incidents')
       .where({
         id,
