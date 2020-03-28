@@ -1,24 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
-import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiPower, FiTrash2, FiRefreshCw, FiArrowLeft } from 'react-icons/fi';
 
 import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
-import { Container, Header, IncidentsList, IncidentsHeading } from './styles';
+import {
+  ProfileContainer,
+  Header,
+  IncidentsHeading,
+  IncidentsList,
+  IncidentOptions,
+  Modal,
+} from './styles';
+import Container from '../../components/Container';
+import Content from '../../components/Content';
+import AuthRedirect from '../../components/AuthRedirect';
+import Section from '../../components/Section';
 import Button from '../../components/Button';
+import { Form, Input, Textarea } from '../../components/Form';
 
 import logoImg from '../../assets/images/logo.svg';
 
 export default function Profile() {
   const [incidents, setIncidents] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [value, setValue] = useState('');
+  const [currentIDBeingUpdated, setCurrentIDBeingUpdated] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
+
   const history = useHistory();
 
   const ongName = localStorage.getItem('ongName');
   const ongId = localStorage.getItem('ongId');
 
-  useEffect(() => {
+  const apiCall = useCallback(() => {
     api
       .get('/profile', { headers: { Authorization: ongId } })
       .then(({ data }) => {
@@ -30,6 +48,10 @@ export default function Profile() {
         setIncidents(newData);
       });
   }, [ongId]);
+
+  useEffect(() => {
+    apiCall();
+  }, [apiCall]);
 
   async function handleDeleteIncident(id) {
     try {
@@ -43,6 +65,39 @@ export default function Profile() {
     }
   }
 
+  function handleShowUpdateModal(id) {
+    if (modalShow === false) {
+      setCurrentIDBeingUpdated(id);
+    } else {
+      setCurrentIDBeingUpdated(null);
+    }
+
+    setModalShow(!modalShow);
+  }
+
+  async function handleUpdateIncident(e) {
+    e.preventDefault();
+
+    const data = {
+      title: title || undefined,
+      description: description || undefined,
+      value: value || undefined,
+    };
+
+    try {
+      await api.put(
+        `/incidents/${currentIDBeingUpdated}`,
+        { ...data },
+        { headers: { Authorization: ongId } }
+      );
+
+      apiCall();
+      handleShowUpdateModal();
+    } catch (err) {
+      alert('Erro ao atualizar caso.');
+    }
+  }
+
   function handleLogout() {
     localStorage.clear();
 
@@ -50,42 +105,98 @@ export default function Profile() {
   }
 
   return (
-    <Container>
-      <Header>
-        <img src={logoImg} alt="Be The Hero" />
-        <span>Bem vindo(a), {ongName}</span>
+    <>
+      <ProfileContainer>
+        <Header>
+          <img src={logoImg} alt="Be The Hero" />
+          <span>Bem vindo(a), {ongName}</span>
 
-        <Link to="/incidents/new">
-          <Button>Cadastrar novo caso</Button>
-        </Link>
-        <button type="button" onClick={handleLogout}>
-          <FiPower size={18} color="#e02041" />
-        </button>
-      </Header>
+          <Link to="/incidents/new">
+            <Button>Cadastrar novo caso</Button>
+          </Link>
+          <button type="button" onClick={handleLogout}>
+            <FiPower size={18} color="#e02041" />
+          </button>
+        </Header>
 
-      <IncidentsHeading>Casos cadastrados</IncidentsHeading>
+        <IncidentsHeading>Casos cadastrados</IncidentsHeading>
 
-      <IncidentsList>
-        {incidents.map(incident => (
-          <li key={incident.id}>
-            <span>CASO:</span>
-            <p>{incident.title}</p>
+        <IncidentsList>
+          {incidents.map(incident => (
+            <li key={incident.id}>
+              <span>CASO:</span>
+              <p>{incident.title}</p>
 
-            <span>DESCRIÇÃO:</span>
-            <p>{incident.description}</p>
+              <span>DESCRIÇÃO:</span>
+              <p>{incident.description}</p>
 
-            <span>VALOR:</span>
-            <p>{incident.value}</p>
+              <span>VALOR:</span>
+              <p>{incident.value}</p>
 
-            <button
-              onClick={() => handleDeleteIncident(incident.id)}
-              type="button"
-            >
-              <FiTrash2 size={20} color="#a8a8b3" />
-            </button>
-          </li>
-        ))}
-      </IncidentsList>
-    </Container>
+              <IncidentOptions>
+                <button
+                  onClick={() => handleShowUpdateModal(incident.id)}
+                  type="button"
+                >
+                  <FiRefreshCw size={20} color="#a8a8b3" />
+                </button>
+
+                <button
+                  onClick={() => handleDeleteIncident(incident.id)}
+                  type="button"
+                >
+                  <FiTrash2 size={20} color="#a8a8b3" />
+                </button>
+              </IncidentOptions>
+            </li>
+          ))}
+        </IncidentsList>
+      </ProfileContainer>
+      <Modal show={modalShow}>
+        <Container>
+          <Content>
+            <Section>
+              <img src={logoImg} alt="Be The Hero" />
+
+              <h1>Atualizar caso</h1>
+              <p>
+                Deixe as informações do caso sempre atualizadas para encontrar
+                um herói para resolvê-lo.
+              </p>
+
+              <AuthRedirect.Button onClick={handleShowUpdateModal}>
+                <FiArrowLeft size={16} color="#e02041" />
+                Voltar
+              </AuthRedirect.Button>
+            </Section>
+            <Form onSubmit={handleUpdateIncident}>
+              <Input
+                placeholder="Título do caso"
+                value={title}
+                onChange={e => {
+                  setTitle(e.target.value);
+                }}
+              />
+              <Textarea
+                placeholder="Descrição"
+                value={description}
+                onChange={e => {
+                  setDescription(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="Valor em reais"
+                value={value}
+                onChange={e => {
+                  setValue(e.target.value);
+                }}
+              />
+
+              <Button type="submit">Cadastrar</Button>
+            </Form>
+          </Content>
+        </Container>
+      </Modal>
+    </>
   );
 }
