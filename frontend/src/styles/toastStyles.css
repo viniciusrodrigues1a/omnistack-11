@@ -1,0 +1,9 @@
+.toast-background {
+  background: #e02041;
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.toast-not-clickable {
+  cursor: auto;
+}
