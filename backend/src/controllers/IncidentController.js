@@ -40,7 +40,14 @@ export default {
       value: Yup.number().positive().required(),
     });
 
-    if (!(await bodyValidationSchema.isValid(req.body))) {
+    const headersValidationSchema = Yup.object().shape({
+      authorization: Yup.string().required(),
+    });
+
+    if (
+      !(await bodyValidationSchema.isValid(req.body)) ||
+      !(await headersValidationSchema.isValid(req.headers))
+    ) {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
