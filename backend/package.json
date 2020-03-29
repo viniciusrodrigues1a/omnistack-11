@@ -9,17 +9,18 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.2.3",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.2",
     "sucrase": "^3.12.1",
-    "supertest": "^4.0.2",
-    "jest": "^25.2.3"
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "dev": "nodemon",
     "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
