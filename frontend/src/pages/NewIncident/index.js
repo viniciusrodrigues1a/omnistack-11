@@ -32,11 +32,7 @@ export default function NewIncident() {
     };
 
     try {
-      await api.post(
-        '/incidents/new',
-        { data },
-        { headers: { Authorization: ongId } }
-      );
+      await api.post('/incidents', data, { headers: { Authorization: ongId } });
 
       history.push('/profile');
     } catch (err) {
