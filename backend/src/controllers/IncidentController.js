@@ -34,13 +34,13 @@ export default {
     return res.json(incidents);
   },
   async create(req, res) {
-    const schema = Yup.object().shape({
+    const bodyValidationSchema = Yup.object().shape({
       title: Yup.string().required(),
       description: Yup.string().required(),
       value: Yup.number().positive().required(),
     });
 
-    if (!(await schema.isValid(req.body))) {
+    if (!(await bodyValidationSchema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
@@ -99,6 +99,14 @@ export default {
     return res.status(204).end();
   },
   async delete(req, res) {
+    const paramsValidationSchema = Yup.object().shape({
+      id: Yup.number().required(),
+    });
+
+    if (!(await paramsValidationSchema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
     const { id } = req.params;
     const ong_id = req.headers.authorization;
 
