@@ -5,15 +5,15 @@ import connection from '../database/connection';
 
 export default {
   async create(req, res) {
-    const schema = Yup.object().shape({
+    const bodyValidationSchema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
       whatsapp: Yup.string().required(),
       city: Yup.string().required(),
-      uf: Yup.string().required(),
+      uf: Yup.string().required().length(2),
     });
 
-    if (!(await schema.isValid(req.body))) {
+    if (!(await bodyValidationSchema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
