@@ -1,7 +1,16 @@
+import * as Yup from 'yup';
 import connection from '../database/connection';
 
 export default {
   async index(req, res) {
+    const headersValidationSchema = Yup.object().shape({
+      authorization: Yup.string().required(),
+    });
+
+    if (!(await headersValidationSchema.isValid(req.headers))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
     const ong_id = req.headers.authorization;
 
     if (!ong_id) {
