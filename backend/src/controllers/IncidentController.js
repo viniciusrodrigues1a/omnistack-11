@@ -4,6 +4,14 @@ import connection from '../database/connection';
 
 export default {
   async index(req, res) {
+    const queryValidationSchema = Yup.object().shape({
+      page: Yup.number(),
+    });
+
+    if (!(await queryValidationSchema.isValid(req.query))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
     const { page = 1 } = req.query;
 
     const [count] = await connection('incidents').count();
