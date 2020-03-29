@@ -32,11 +32,10 @@ export default function Incidents() {
     setLoading(true);
 
     const response = await api.get(`/incidents?page=${page}`);
-    const { data } = response;
 
-    data.map(incident => ({
+    const data = response.data.map(incident => ({
       ...incident,
-      value: formatPrice(incident.value),
+      formattedPrice: formatPrice(incident.value),
     }));
 
     // eslint-disable-next-line no-shadow
@@ -93,7 +92,7 @@ export default function Incidents() {
             <Incident.Value>{incident.title}</Incident.Value>
 
             <Incident.Property>VALOR:</Incident.Property>
-            <Incident.Value>{incident.value}</Incident.Value>
+            <Incident.Value>{incident.formattedPrice}</Incident.Value>
 
             <DetailsButton onPress={() => navigateToDetail(incident)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
