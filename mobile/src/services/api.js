@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { API_URL } from 'react-native-dotenv';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: 'https://be-the-hero-omnistack-backend.herokuapp.com/',
 });
 
 export default api;
