@@ -4,7 +4,6 @@
 - [Primeiros passos](#getting_started)
 - [Rotas](#routes)
 - [Feito com](#built_using)
-- [Licença](#license)
 
 ## 🧐 Sobre <a name = "about"></a>
 
@@ -52,7 +51,3 @@ yarn start
 - [KnexJS](https://knexjs.org/)
 - [Jest](https://jestjs.io/)
 - [Yup](https://github.com/jquense/yup)
-
-## :memo: Licença <a name = "license"></a>
-
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
