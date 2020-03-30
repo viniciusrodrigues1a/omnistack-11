@@ -34,14 +34,14 @@ yarn start
 | ------------- | ---------------------------------------- | ---------- | ------------------------- | ---------------------------- | ------------------------------------------------------------------- |
 | POST          | /ongs                                    | JSON       |                           |                              | Cria uma ONG no banco de dados.                                     |
 | <br />        |                                          |            |                           |                              |                                                                     |
-| GET           | /incidents?page=                         | -          | -                         | page = Número da página;     | Lista todos os casos existentes.                                    |
-| PUT           | /incidents/:id                           | JSON       | authorization = ID da ONG | -                            | Atualiza informações de um caso.                                    |
-| DELETE        | /incidents/:id                           |            | authorization = ID da ONG | -                            | Deleta um caso.                                                     |
-| POST          | /incidents                               | JSON       | authorization = ID da ONG | -                            | Cadastra um caso.                                                   |
+| GET           | /incidents?page=                         |            |                           | page = Número da página;     | Lista todos os casos existentes.                                    |
+| PUT           | /incidents/:id                           | JSON       | authorization = ID da ONG |                              | Atualiza informações de um caso.                                    |
+| DELETE        | /incidents/:id                           |            | authorization = ID da ONG |                              | Deleta um caso.                                                     |
+| POST          | /incidents                               | JSON       | authorization = ID da ONG |                              | Cadastra um caso.                                                   |
 | <br />        |                                          |            |                           |                              |                                                                     |
-| GET           | /profile                                 | -          | authorization = ID da ONG | -                            | Lista os casos criados pela ong passada no header de authorization. |
-| <br />        |                                          |            |                           | -                            |                                                                     |
-| POST          | /session                                 | JSON       | -                         |                              | Retorna o ID de acesso nos headers.                                 |
+| GET           | /profile                                 |            | authorization = ID da ONG |                              | Lista os casos criados pela ong passada no header de authorization. |
+| <br />        |                                          |            |                           |                              |                                                                     |
+| POST          | /session                                 | JSON       |                           |                              | Retorna o ID de acesso nos headers.                                 |
 
 ## ⛏️ Feito com <a name = "built_using"></a>
 
