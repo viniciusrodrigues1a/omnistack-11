@@ -16,6 +16,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
+    "start": "sucrase-node src/server.js",
     "dev": "nodemon",
     "test": "cross-env NODE_ENV=test jest"
   },
@@ -25,6 +26,7 @@
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "knex": "^0.20.13",
+    "pg": "^7.18.2",
     "sqlite3": "^4.1.1",
     "yup": "^0.28.3"
   }
