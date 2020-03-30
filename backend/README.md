@@ -1,13 +1,10 @@
+<h1 align="center">Backend da aplicação Be The Hero.</h1>
+
 ## :page_facing_up: Índice
 
-- [Sobre](#about)
 - [Primeiros passos](#getting_started)
 - [Rotas](#routes)
 - [Feito com](#built_using)
-
-## 🧐 Sobre <a name = "about"></a>
-
-Backend da aplicação Be The Hero.
 
 ## 🏁 Primeiros passos <a name = "getting_started"></a>
 
