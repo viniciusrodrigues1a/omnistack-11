@@ -66,6 +66,9 @@ export default function Detail() {
         <StyledIncidentProperty>CASO:</StyledIncidentProperty>
         <StyledIncidentValue>{incident.title}</StyledIncidentValue>
 
+        <StyledIncidentProperty>DESCRIÇÃO:</StyledIncidentProperty>
+        <StyledIncidentValue>{incident.description}</StyledIncidentValue>
+
         <StyledIncidentProperty>VALOR:</StyledIncidentProperty>
         <StyledIncidentValue>{incident.formattedPrice}</StyledIncidentValue>
       </StyledIncidentContainer>
