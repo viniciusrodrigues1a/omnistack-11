@@ -24,4 +24,24 @@ describe('ONG', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body.id).toHaveLength(8);
   });
+
+  it('should NOT be able to create two ONGS with the same name, e-mail or phone number', async () => {
+    await await request(app).post('/ongs').send({
+      name: 'ONG1',
+      email: 'contato@teste.com',
+      whatsapp: '4700000000',
+      city: 'São Paulo',
+      uf: 'SP',
+    });
+
+    const response = await request(app).post('/ongs').send({
+      name: 'APAD2',
+      email: 'contato@teste.com', // same e-mail as ONG1
+      whatsapp: '4700000000', // same whatsapp number as ONG1
+      city: 'Rio do Sul',
+      uf: 'SC',
+    });
+
+    expect(response.status).toBe(400);
+  });
 });
