@@ -19,6 +19,19 @@ export default {
 
     const { name, email, whatsapp, city, uf } = req.body;
 
+    const ongsArray = await connection('ongs')
+      .select('*')
+      .where('name', name)
+      .orWhere('email', email)
+      .orWhere('whatsapp', whatsapp);
+
+    if (ongsArray.length > 0) {
+      return res.status(400).json({
+        error:
+          'Ong already exists. (check your name, email or whatsapp number)',
+      });
+    }
+
     const id = generateUniqueId();
 
     await connection('ongs').insert({
