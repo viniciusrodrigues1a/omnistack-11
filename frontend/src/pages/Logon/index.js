@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
 import { signInRequest } from '../../store/modules/auth/actions';
