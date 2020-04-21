@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FiPower, FiTrash2, FiRefreshCw, FiArrowLeft } from 'react-icons/fi';
 
 import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
+
+import { signOut } from '../../store/modules/auth/actions';
 
 import {
   ProfileContainer,
@@ -32,7 +35,7 @@ export default function Profile() {
   const [currentIDBeingUpdated, setCurrentIDBeingUpdated] = useState(null);
   const [modalShow, setModalShow] = useState(false);
 
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   const ongName = localStorage.getItem('ongName');
   const ongId = localStorage.getItem('ongId');
@@ -104,9 +107,7 @@ export default function Profile() {
   }
 
   function handleLogout() {
-    localStorage.clear();
-
-    history.push('/');
+    dispatch(signOut());
   }
 
   return (
