@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
-import api from '../../services/api';
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import { FormSection, Form } from './styles';
 import Container from '../../components/Container';
@@ -15,24 +16,14 @@ import heroesImg from '../../assets/images/heroes.png';
 import logoImg from '../../assets/images/logo.svg';
 
 export default function Logon() {
+  const dispatch = useDispatch();
+
   const [id, setID] = useState('');
-  const history = useHistory();
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    try {
-      const response = await api.post('/session', { id });
-
-      localStorage.setItem('ongId', id);
-      localStorage.setItem('ongName', response.data.name);
-
-      history.push('/profile');
-    } catch (err) {
-      toast.error('Falha no login, tente novamente.', {
-        className: 'toast-background',
-      });
-    }
+    dispatch(signInRequest(id));
   }
 
   return (
