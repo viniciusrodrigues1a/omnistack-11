@@ -18,6 +18,7 @@ import {
   IncidentsList,
   IncidentOptions,
   Modal,
+  ApplyOverflowHiddenToBody,
 } from './styles';
 import Container from '../../components/Container';
 import Content from '../../components/Content';
@@ -160,6 +161,7 @@ export default function Profile() {
         </IncidentsList>
       </ProfileContainer>
       <Modal show={modalShow}>
+        <ApplyOverflowHiddenToBody show={modalShow} />
         <Container>
           <Content>
             <Section>

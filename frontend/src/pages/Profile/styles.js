@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const ProfileContainer = styled.div`
   width: 100%;
@@ -97,7 +97,7 @@ export const IncidentOptions = styled.div`
 `;
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   display: ${({ show }) => (show ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
@@ -113,4 +113,10 @@ export const ModalContent = styled.div`
   height: 50%;
   background: #eee;
   border-radius: 8px;
+`;
+
+export const ApplyOverflowHiddenToBody = createGlobalStyle`
+  body {
+    overflow: ${({ show }) => (show ? 'hidden' : 'visible')};
+  }
 `;
