@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
-import api from '../../services/api';
+import { store } from '../../store';
+import { newIncidentRequest } from '../../store/modules/incidents/actions';
 
 import Container from '../../components/Container';
 import Content from '../../components/Content';
@@ -18,9 +19,10 @@ export default function NewIncident() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
-  const history = useHistory();
 
-  const ongId = localStorage.getItem('ongId');
+  const dispatch = useDispatch();
+
+  const ongId = store.getState().auth.id;
 
   async function handleNewIncident(e) {
     e.preventDefault();
@@ -32,9 +34,7 @@ export default function NewIncident() {
     };
 
     try {
-      await api.post('/incidents', data, { headers: { Authorization: ongId } });
-
-      history.push('/profile');
+      dispatch(newIncidentRequest(ongId, data));
     } catch (err) {
       toast.error('Erro ao cadastrar caso.', {
         className: 'toast-background',
