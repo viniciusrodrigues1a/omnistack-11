@@ -14,7 +14,7 @@ function* signIn({ payload }) {
 
     const { name } = response.data;
 
-    yield put(signInSuccess(name));
+    yield put(signInSuccess(name, id));
 
     history.push('/profile');
   } catch (err) {
