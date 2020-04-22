@@ -8,6 +8,7 @@ import { FiPower, FiTrash2, FiRefreshCw, FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
+import { store } from '../../store';
 import { signOut } from '../../store/modules/auth/actions';
 
 import {
@@ -37,8 +38,8 @@ export default function Profile() {
 
   const dispatch = useDispatch();
 
-  const ongName = localStorage.getItem('ongName');
-  const ongId = localStorage.getItem('ongId');
+  const ongName = store.getState().auth.name;
+  const ongId = store.getState().auth.id;
 
   const apiCall = useCallback(() => {
     api
