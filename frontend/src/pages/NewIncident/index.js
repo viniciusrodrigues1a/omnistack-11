@@ -33,13 +33,7 @@ export default function NewIncident() {
       value,
     };
 
-    try {
-      dispatch(newIncidentRequest(ongId, data));
-    } catch (err) {
-      toast.error('Erro ao cadastrar caso.', {
-        className: 'toast-background',
-      });
-    }
+    dispatch(newIncidentRequest(ongId, data));
   }
 
   return (
