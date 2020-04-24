@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import { store } from '../../store';
