@@ -1,7 +1,7 @@
-export function newIncidentRequest(ongId, data) {
+export function newIncidentRequest(data) {
   return {
     type: '@incidents/CREATE_REQUEST',
-    payload: { ongId, data },
+    payload: { data },
   };
 }
 
@@ -9,5 +9,12 @@ export function newIncidentSuccess(data) {
   return {
     type: '@incidents/CREATE_SUCCESS',
     payload: { data },
+  };
+}
+
+export function deleteIncidentRequest(id) {
+  return {
+    type: '@incidents/DELETE_REQUEST',
+    payload: { id },
   };
 }
