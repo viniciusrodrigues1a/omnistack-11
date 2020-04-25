@@ -14,6 +14,8 @@ function* signIn({ payload }) {
 
     const { name } = response.data;
 
+    api.defaults.headers.Authorization = id;
+
     yield put(signInSuccess(name, id));
 
     history.push('/profile');
@@ -29,7 +31,16 @@ function signOut() {
   history.push('/');
 }
 
+function setToken({ payload }) {
+  if (!payload) return;
+
+  const { id } = payload.auth;
+
+  api.defaults.headers.Authorization = id;
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_OUT', signOut),
 ]);
