@@ -24,4 +24,21 @@ function* newIncident({ payload }) {
   }
 }
 
-export default all([takeLatest('@incidents/CREATE_REQUEST', newIncident)]);
+function* deleteIncident({ payload }) {
+  try {
+    const { id } = payload;
+
+    yield call(api.delete, `incidents/${id}`);
+
+    toast.success('Caso deletado com sucesso!');
+  } catch (err) {
+    toast.error('Falha na remoção do caso, tente novamente.', {
+      className: 'toast-background',
+    });
+  }
+}
+
+export default all([
+  takeLatest('@incidents/CREATE_REQUEST', newIncident),
+  takeLatest('@incidents/DELETE_REQUEST', deleteIncident),
+]);
