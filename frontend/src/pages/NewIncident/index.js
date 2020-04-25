@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FiArrowLeft } from 'react-icons/fi';
 
-import { store } from '../../store';
 import { newIncidentRequest } from '../../store/modules/incidents/actions';
 
 import Container from '../../components/Container';
@@ -21,8 +20,6 @@ export default function NewIncident() {
 
   const dispatch = useDispatch();
 
-  const ongId = store.getState().auth.id;
-
   async function handleNewIncident(e) {
     e.preventDefault();
 
@@ -32,7 +29,7 @@ export default function NewIncident() {
       value,
     };
 
-    dispatch(newIncidentRequest(ongId, data));
+    dispatch(newIncidentRequest(data));
   }
 
   return (
