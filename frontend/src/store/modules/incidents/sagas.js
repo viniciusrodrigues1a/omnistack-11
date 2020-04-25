@@ -8,11 +8,9 @@ import { newIncidentSuccess } from './actions';
 
 function* newIncident({ payload }) {
   try {
-    const { ongId, data } = payload;
+    const { data } = payload;
 
-    const response = yield call(api.post, 'incidents', data, {
-      headers: { Authorization: ongId },
-    });
+    const response = yield call(api.post, 'incidents', data);
 
     yield put(newIncidentSuccess(response.data));
 
