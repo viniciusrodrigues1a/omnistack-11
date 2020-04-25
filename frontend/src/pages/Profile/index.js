@@ -10,6 +10,7 @@ import formatPrice from '../../utils/formatPrice';
 
 import { store } from '../../store';
 import { signOut } from '../../store/modules/auth/actions';
+import { deleteIncidentRequest } from '../../store/modules/incidents/actions';
 
 import {
   ProfileContainer,
@@ -60,17 +61,7 @@ export default function Profile() {
   }, [apiCall]);
 
   async function handleDeleteIncident(id) {
-    try {
-      await api.delete(`/incidents/${id}`, {
-        headers: { Authorization: ongId },
-      });
-
-      setIncidents(incidents.filter(incident => incident.id !== id));
-    } catch (err) {
-      toast.error('Erro ao deletar caso.', {
-        className: 'toast-background',
-      });
-    }
+    dispatch(deleteIncidentRequest(id));
   }
 
   function handleShowUpdateModal(id) {
