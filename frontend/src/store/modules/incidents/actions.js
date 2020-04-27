@@ -18,3 +18,10 @@ export function deleteIncidentRequest(id) {
     payload: { id },
   };
 }
+
+export function updateIncidentRequest(id, data) {
+  return {
+    type: '@incidents/UPDATE_REQUEST',
+    payload: { id, data },
+  };
+}
