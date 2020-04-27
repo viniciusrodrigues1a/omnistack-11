@@ -38,7 +38,22 @@ function* deleteIncident({ payload }) {
   }
 }
 
+function* updateIncident({ payload }) {
+  try {
+    const { id, data } = payload;
+
+    yield call(api.put, `incidents/${id}`, data);
+
+    toast.success('Caso atualizado com sucesso!');
+  } catch (err) {
+    toast.error('Falha na atualização do caso, tente novamente.', {
+      className: 'toast-background',
+    });
+  }
+}
+
 export default all([
   takeLatest('@incidents/CREATE_REQUEST', newIncident),
   takeLatest('@incidents/DELETE_REQUEST', deleteIncident),
+  takeLatest('@incidents/UPDATE_REQUEST', updateIncident),
 ]);
