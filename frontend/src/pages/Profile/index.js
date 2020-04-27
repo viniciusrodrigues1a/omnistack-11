@@ -10,7 +10,10 @@ import formatPrice from '../../utils/formatPrice';
 
 import { store } from '../../store';
 import { signOut } from '../../store/modules/auth/actions';
-import { deleteIncidentRequest } from '../../store/modules/incidents/actions';
+import {
+  deleteIncidentRequest,
+  updateIncidentRequest,
+} from '../../store/modules/incidents/actions';
 
 import {
   ProfileContainer,
@@ -83,20 +86,8 @@ export default function Profile() {
       value: value || undefined,
     };
 
-    try {
-      await api.put(
-        `/incidents/${currentIDBeingUpdated}`,
-        { ...data },
-        { headers: { Authorization: ongId } }
-      );
-
-      apiCall();
-      handleShowUpdateModal();
-    } catch (err) {
-      toast.error('Erro ao atualizar caso.', {
-        className: 'toast-background',
-      });
-    }
+    dispatch(updateIncidentRequest(currentIDBeingUpdated, data));
+    apiCall();
   }
 
   function handleLogout() {
