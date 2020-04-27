@@ -183,7 +183,7 @@ export default function Profile() {
                 }}
               />
 
-              <Button type="submit">Cadastrar</Button>
+              <Button type="submit">Atualizar</Button>
             </Form>
           </Content>
         </Container>
